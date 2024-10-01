@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Icons with Comment Box</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 60%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
+        th {
+            font-size: 24px;
+            background-color: #f2f2f2;
+        }
+        .comment-section {
+            margin-top: 30px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #comment-list {
+            margin-top: 20px;
+            width: 60%;
+            margin: 0 auto;
+        }
+        .comment {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+    </style>
+
+    <!-- Updated EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("sjWeBWnoVe-4FILZV");  // Initialize with your EmailJS Public API Key
+        })();
+
+        function saveComment(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            // Get the comment from the textarea
+            let comment = document.getElementById("userComment").value;
+
+            // Count words and limit to 20 words
+            let wordCount = comment.split(/\s+/).filter((word) => word.length > 0).length;
+            if (wordCount > 20) {
+                alert("Your comment cannot exceed 20 words.");
+                return false;
+            }
+
+            // Check if the comment is not empty
+            if (comment.trim() === "") {
+                alert("Comment cannot be empty.");
+                return false;
+            }
+
+            // Send the comment via EmailJS
+            emailjs.send("service_s9o036f", "template_jfa425c", {
+                message: comment
+            })
+            .then(function(response) {
+                alert("Comment sent successfully!");
+            }, function(error) {
+                alert("Failed to send comment. Error: " + JSON.stringify(error));
+            });
+
+            // Clear the textarea
+            document.getElementById("userComment").value = "";
+        }
+
+        // Call displayComments() when the page loads to show saved comments (if needed for future updates)
+        window.onload = function() {
+            displayComments();
+        };
+    </script>
+</head>
+<body>
+
+<h2>Click on a fruit icon to see the big picture!</h2>
+
+<!-- Creating a table to display the fruits -->
+<table>
+    <!-- First row with the title -->
+    <tr>
+        <th colspan="3">My Favorite Fruits</th>
+    </tr>
+    
+    <!-- Second row with 3 columns for Rambutan, Durian, and Banana -->
+    <tr>
+        <td>
+            <a href="rambutan.html">
+                <img src="rambutan.jpg" alt="Rambutan">
+                <p>Rambutan</p>
+            </a>
+        </td>
+        <td>
+            <a href="durian.html">
+                <img src="durian.jpg" alt="Durian">
+                <p>Durian</p>
+            </a>
+        </td>
+        <td>
+            <a href="banana.html">
+                <img src="banana.jpg" alt="Banana">
+                <p>Banana</p>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<!-- Comment Box Section -->
+<div class="comment-section">
+    <h3>Leave a Comment (Max 20 words)</h3>
+    <form onsubmit="saveComment(event)">
+        <textarea id="userComment" placeholder="Enter your comment here..."></textarea>
+        <br>
+        <button type="submit">Send Comment</button>
+    </form>
+</div>
+
+<!-- Display Saved Comments -->
+<div id="comment-list"></div>
+
+</body>
+</html>
