@@ -2,18 +2,45 @@
 <html>
 <head>
     <title>3 Frame Layout</title>
+    <!-- Link the CSS file -->
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<frameset cols="35%,65%">
-    <frameset rows="40%,60%">
-        <frame src="left_top.html" name="left_top_frame">
-        <frame src="Kelebihan_buah-buahan_tempatan.html" name="left_bottom_frame">
-    </frameset>
-    <frame src="right.html" name="right_frame">
-</frameset>
-<noframes>
-    <body>
-        <p>Your browser does not support frames. Please update your browser.</p>
-    </body>
-</noframes>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="left-top">
+                <!-- Logo that toggles the right frame -->
+                <a href="javascript:void(0);" onclick="toggleRightFrame()">
+                    <img src="CLHS.jpeg" alt="CLHS Logo" style="width: 200px; height: auto;">
+                </a>
+            </div>
+            <div class="left-bottom">
+                <!-- Content in the left bottom frame -->
+                <iframe src="left_bottom.html" name="left_bottom_frame"></iframe>
+            </div>
+        </div>
+        <div class="right">
+            <!-- Content in the right frame -->
+            <iframe src="Kelebihan_buah-buahan_tempatan.html" id="right_frame" name="right_frame"></iframe>
+        </div>
+    </div>
+
+    <script>
+        var toggle = true;
+
+        // Function to toggle the right frame content
+        function toggleRightFrame() {
+            var rightFrame = document.getElementById("right_frame");
+
+            if (toggle) {
+                rightFrame.src = "https://www.clhs.edu.my";
+            } else {
+                rightFrame.src = "Kelebihan_buah-buahan_tempatan.html";
+            }
+            toggle = !toggle;
+        }
+    </script>
+</body>
 </html>
+
 

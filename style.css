@@ -1,0 +1,48 @@
+/* Ensure the page takes up the full browser height */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+/* Main container for the frames */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* The left side should take up 50% of the width */
+.left {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* The right side should take up 50% of the width */
+.right {
+    width: 65%;
+    min-height: 100%; /* Ensure it expands vertically */
+}
+
+/* Left top section - takes up 30% of the height, and centers content */
+.left-top {
+    height: 30%;
+    display: flex;
+    justify-content: center; /* Centers the logo horizontally */
+    align-items: center; /* Centers the logo vertically */
+}
+
+/* Left bottom section - takes up 70% of the height */
+.left-bottom {
+    height: 70%;
+}
+
+/* Set the iframe to take the full space in its container */
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
